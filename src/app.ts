@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express from "express";
 import { IncomingMessage, ServerResponse, createServer } from "http";
 import { Server, Socket } from "socket.io";
 import cors from "cors";
@@ -14,10 +14,9 @@ import adminRouter from "./routes/adminRouter.js";
 import messageRouter from "./routes/messageRouter.js";
 import { v2 as cloudinary } from "cloudinary";
 import { v4 as uuid } from "uuid";
-import { NEW_MESSAGE, NEW_MESSAGE_ALERT } from "./constants/events.js";
+import { NEW_MESSAGE } from "./constants/events.js";
 import { getSockets } from "./lib/helper.js";
 import { AuthenticatedUserSocketRequestType, socketAuthenticator } from "./middlewares/auth.js";
-import ErrorHandler from "./utils/ErrorHandler.js";
 import mongoose from "mongoose";
 
 
@@ -96,7 +95,12 @@ cloudinary.config({
 
 
 app.use(cors({
-    origin:process.env.SERVER_URI,
+    origin:[
+        process.env.SERVER_URI as string,
+        "https://chatapp-frontend-gouravkotnala777s-projects.vercel.app/",
+        "https://chatapp-frontend-git-main-gouravkotnala777s-projects.vercel.app/"
+
+    ],
     credentials:true
 }));
 app.use(express.json());
