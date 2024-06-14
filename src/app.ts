@@ -33,10 +33,6 @@ interface AuthenticatedUserSocketRequestTypeA extends Socket {
         };
     };
 }
-
-
-
-
 interface ExtendedIncomingMessage extends IncomingMessage {
     cookies: { [key: string]: string };
     res: ServerResponse;
@@ -96,10 +92,7 @@ cloudinary.config({
 
 app.use(cors({
     origin:[
-        process.env.SERVER_URI as string,
-        "https://chatapp-frontend-gouravkotnala777s-projects.vercel.app/",
-        "https://chatapp-frontend-git-main-gouravkotnala777s-projects.vercel.app/"
-
+        process.env.SERVER_URI as string
     ],
     credentials:true
 }));

@@ -185,7 +185,7 @@ export const leaveGroup = asyncHandler(async(req:Request, res:Response, next:Nex
 export const getChatDetailes = asyncHandler(async(req:Request, res:Response, next:NextFunction) => {
     if (req.query.populate === "true") {        
         const chat = await Chat.findById(req.params.chatID)
-                            .populate({model:"User", path:"members", select:"name avatar"})
+                            .populate({model:"User", path:"members", select:"name userName bio avatar createdAt"})
                             .lean() as ChatTypesPopulated;
 
         if (!chat) return next(new ErrorHandler("Chat not found", 404));
@@ -193,6 +193,9 @@ export const getChatDetailes = asyncHandler(async(req:Request, res:Response, nex
         const members = chat?.members?.map((member) => ({
             _id:member._id as mongoose.Schema.Types.ObjectId,
             name:member.name as string,
+            userName:member.userName as string,
+            bio:member.bio as string,
+            createdAt:member.createdAt,
             avatar:{
                 public_id:member.avatar?.url as string,
                 url:member.avatar?.url as string
@@ -202,7 +205,7 @@ export const getChatDetailes = asyncHandler(async(req:Request, res:Response, nex
     }
     else{
         const chat = await Chat.findById(req.params.chatID)
-                                .populate({model:"User", path:"members", select:"name avatar"})
+                                .populate({model:"User", path:"members", select:"name userName bio avatar createdAt"})
                                 .lean() as ChatTypesPopulated;
 
         if (!chat) return next(new ErrorHandler("Chat not found", 404));

@@ -17,7 +17,7 @@ export const createUser = asyncHandler(async(req:Request, res:Response, next:Nex
     const {name, userName, password, bio} = req.body;
     const file = req.file as Express.Multer.File;
 
-    console.log({name, userName, password, bio});
+    console.log({name, userName, password, bio, file});
     
     if (!name || !userName || !password || !bio) return next(new ErrorHandler("All fields are required", 400));
     if (!file) return next(new ErrorHandler("Please upload avatar", 400));
@@ -195,7 +195,7 @@ export const getMyNotifications = asyncHandler(async(req:Request, res:Response, 
         sender:{
             _id:request.sender._id,
             name:request.sender.name,
-            avata:request.sender.avatar.url
+            avatar:request.sender.avatar.url
         }
     }));
 

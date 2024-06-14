@@ -32,6 +32,9 @@ export interface ChatTypesPopulated extends Document{
             public_id:string;
             url:string;
         };
+        userName?:string;
+        bio?:string;
+        createdAt?:Date;
     }[];
     avatar:{
         public_id:string;
