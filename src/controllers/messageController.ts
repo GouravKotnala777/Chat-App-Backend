@@ -59,7 +59,7 @@ export const sendAttachments = async(req:Request, res:Response, next:NextFunctio
         
             const message = await Message.create(messageForDB);
         
-            emitEvent(req, NEW_MESSAGE, userIDArray!, {
+            emitEvent(req, "NEW_MESSAGE", userIDArray!, {
                 message:messageForRealTime,
                 chatID
             });
@@ -160,13 +160,13 @@ export const sendAttachments = async(req:Request, res:Response, next:NextFunctio
                 const message = await Message.insertMany([...contentMessageForDB, ...attachementMessageForDB]);
                 
                 
-                console.log("::::::::::::::::: 1");
-                console.log({contentMessageForDB});
-                console.log("----------------");
-                console.log({attachementMessageForDB});
-                console.log("----------------");
-                console.log({message});
-                console.log("::::::::::::::::: 2");
+                // console.log("::::::::::::::::: 1");
+                // console.log({contentMessageForDB});
+                // console.log("----------------");
+                // console.log({attachementMessageForDB});
+                // console.log("----------------");
+                // console.log({message});
+                // console.log("::::::::::::::::: 2");
                 
                 
                 
@@ -193,7 +193,7 @@ export const getMessages = async(req:Request, res:Response, next:NextFunction) =
     const {chatID} = req.params;
     // const page = req.query.page as string;
     const page = 1;
-    console.log({page});
+    // console.log({page});
     
     const limit = 20;
     const skip = (Number(page) - 1) * limit;
